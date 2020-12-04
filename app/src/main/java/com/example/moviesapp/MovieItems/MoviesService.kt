@@ -1,6 +1,5 @@
 package com.example.moviesapp.MovieItems
 
-import com.example.moviesapp.comments.CommentItem
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
