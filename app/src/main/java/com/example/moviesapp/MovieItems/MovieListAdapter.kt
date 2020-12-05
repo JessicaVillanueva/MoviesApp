@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesapp.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_movie.view.*
+import java.util.*
 
-class MovieListAdapter (val items:MutableList<MovieItem>, val context: Context, val onClickComment:(item:MovieItem) -> Unit): RecyclerView.Adapter<MovieListAdapter.MovieHolder>(){
+class MovieListAdapter (var items:MutableList<MovieItem>, val context: Context, val onClickComment:(item:MovieItem) -> Unit): RecyclerView.Adapter<MovieListAdapter.MovieHolder>(){
 
     class MovieHolder(val itemTemplate: View): RecyclerView.ViewHolder(itemTemplate) {
         fun render(item:MovieItem, context: Context, onClickEdit:(item:MovieItem) -> Unit) {
@@ -37,5 +38,10 @@ class MovieListAdapter (val items:MutableList<MovieItem>, val context: Context, 
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun filtrar(filtroMovies: MutableList<MovieItem>) {
+        this.items = filtroMovies
+        notifyDataSetChanged()
     }
 }
