@@ -13,6 +13,11 @@ interface CommentService  {
         @Field("movie_id") movie_id: Int,
         @Field("user_id") user_id: Int
     ): Call<CommentItem?>?*/
+   /* @PUT("comments/{commentId}")
+    fun updateComment(
+        @Field("commentId") commentId: String)
+    @Body requestBody: RequestBody
+    ): Call<CommentItem?>*/
 
     @GET("comments/{movieId}")
     fun listCommentsForMovie(@Path("movieId") movieId: Int):Call<List<CommentItem>>

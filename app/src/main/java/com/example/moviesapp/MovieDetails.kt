@@ -21,7 +21,8 @@ class MovieDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_details)
-        getComments()
+        val movie_id  = intent.getIntExtra("movie_id", -1)
+        getComments(movie_id)
 
     }
 
@@ -51,13 +52,15 @@ class MovieDetails : AppCompatActivity() {
 
         })
     }
+    fun clickComment(item:CommentItem){
+
+    }
+
     fun initCommentRecycler() {
-        adapter = CommentListAdapter(listComments, this, ::ClickComment)
+        adapter = CommentListAdapter(listComments, this, ::clickComment)
         rvComments.layoutManager = LinearLayoutManager(this)
         rvComments.adapter = adapter
     }
 
-    fun onClickComment(){
 
-    }
 }
