@@ -40,13 +40,21 @@ class SingInFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view: View = inflater!!.inflate(R.layout.fragment_sing_in, container, false)
-        view.btnSignIn.setOnClickListener { view ->
-            println("SI JALAAAAAAAAAAAAAAAA")
-        }
+
 
         //view_fragment = inflater.inflate(R.layout.fragment_sing_in, container, false)
         //init()
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        btnSignIn.setOnClickListener { view ->
+            if (validate()) {
+                println("si paso el if c::::::::::")
+            }
+        }
     }
 
     companion object {
