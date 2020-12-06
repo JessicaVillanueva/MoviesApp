@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.moviesapp.R
 import kotlinx.android.synthetic.main.fragment_sing_in.*
+import kotlinx.android.synthetic.main.fragment_sing_in.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,7 +23,7 @@ class SingInFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var view_fragment: View? = null
+    //private var view_fragment: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +39,14 @@ class SingInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        view_fragment = inflater.inflate(R.layout.fragment_sing_in, container, false)
-        init()
-        return view_fragment
+        val view: View = inflater!!.inflate(R.layout.fragment_sing_in, container, false)
+        view.btnSignIn.setOnClickListener { view ->
+            println("SI JALAAAAAAAAAAAAAAAA")
+        }
+
+        //view_fragment = inflater.inflate(R.layout.fragment_sing_in, container, false)
+        //init()
+        return view
     }
 
     companion object {
@@ -64,17 +70,19 @@ class SingInFragment : Fragment() {
     }
 
     private fun init(){
-        //abre el fragment para crear un usuario
-        txtSignUp.setOnClickListener {
+        //inicia los botones
+      /* txtSignUp.setOnClickListener {
             activity!!.supportFragmentManager.beginTransaction()
                 .replace(R.id.frameAuthContainer, SingUpFragment()).commit()
-        }
+        }*/
 
-        btnSignIn.setOnClickListener {
+
+        /*btnSignIn.setOnClickListener {
+            println("si entra al boton c::::::::::")
             if (validate()) {
-               // login()
+               println("si paso el if c::::::::::")
             }
-        }
+        }*/
     }
 
     private fun validate(): Boolean {

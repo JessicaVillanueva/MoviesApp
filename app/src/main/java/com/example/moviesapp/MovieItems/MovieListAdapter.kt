@@ -10,10 +10,10 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_movie.view.*
 import java.util.*
 
-class MovieListAdapter (var items:MutableList<MovieItem>, val context: Context, val onClickComment:(item:MovieItem) -> Unit): RecyclerView.Adapter<MovieListAdapter.MovieHolder>(){
+class MovieListAdapter (var items:MutableList<MovieItem>, val context: Context, val onClickDetails:(item:MovieItem) -> Unit): RecyclerView.Adapter<MovieListAdapter.MovieHolder>(){
 
     class MovieHolder(val itemTemplate: View): RecyclerView.ViewHolder(itemTemplate) {
-        fun render(item:MovieItem, context: Context, onClickEdit:(item:MovieItem) -> Unit) {
+        fun render(item:MovieItem, context: Context, onClickDetails:(item:MovieItem) -> Unit) {
             /* Datos del template */
             itemTemplate.txtTitleMovie.text = item.title
             itemTemplate.txtSynopsisMovie.text = item.synopsis
@@ -21,8 +21,8 @@ class MovieListAdapter (var items:MutableList<MovieItem>, val context: Context, 
                 Picasso.get().load(item.image).into(itemTemplate.imageMovie)
             }
             /* Button Listeners */
-            itemTemplate.btnComments.setOnClickListener {
-                onClickEdit(item)
+            itemTemplate.layoutCardMovie.setOnClickListener {
+                onClickDetails(item)
             }
         }
     }
@@ -33,7 +33,7 @@ class MovieListAdapter (var items:MutableList<MovieItem>, val context: Context, 
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.render(items[position], context, onClickComment)
+        holder.render(items[position], context, onClickDetails)
     }
 
     override fun getItemCount(): Int {
