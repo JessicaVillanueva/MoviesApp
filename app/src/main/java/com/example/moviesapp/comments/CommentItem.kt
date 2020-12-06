@@ -1,9 +1,11 @@
 package com.example.moviesapp.comments
 
 data class CommentItem (
-    val postId: Int,
     val id:Int,
-    val name:String,
-    val email:String,
-    val body:String
+    val comment:String,
+    val date:String,
+    val movie_id:Int,
+    val user_id:Int,
+    val username:String
+
 )

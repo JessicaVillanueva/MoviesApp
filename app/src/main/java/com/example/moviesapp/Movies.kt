@@ -41,7 +41,7 @@ class Movies : AppCompatActivity() {
         //startActivityForResult(ActivitiesHelper().openEditTodo(this, item), ActivitiesHelper().OPEN_EDIT_TODO_RID)
 
         var intent = Intent(this, MovieDetails::class.java)
-        intent.putExtra("Movie_id", item.id)
+        intent.putExtra("movie_id", item.id)
         startActivity(intent)
     }
 
