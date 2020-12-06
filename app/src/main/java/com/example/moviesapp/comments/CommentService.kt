@@ -19,11 +19,11 @@ interface CommentService  {
     @Body requestBody: RequestBody
     ): Call<CommentItem?>*/
 
-    @GET("comments/{movieId}")
+    @GET("comment/{movieId}")
     fun listCommentsForMovie(@Path("movieId") movieId: Int):Call<List<CommentItem>>
 
     //ruta para guardar comentario
-    @POST("comments")
+    @POST("comment")
     @FormUrlEncoded
     fun saveComment(
         @Field("comment") comment: String?,

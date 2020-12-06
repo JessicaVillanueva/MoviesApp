@@ -36,9 +36,9 @@ class MovieDetails : AppCompatActivity() {
                 response: Response<List<CommentItem>>
             ) {
                 if(response.isSuccessful){
-                    for((id, comment, date_comment, name_user, movie_id)in response.body()!!){
+                    for((id, comment, date, movie_id, user_id, username)in response.body()!!){
                         listComments.add(
-                            CommentItem(id, comment, date_comment, name_user, movie_id)
+                            CommentItem(id, comment, date, movie_id, user_id, username)
                         )
                     }
                     initCommentRecycler()

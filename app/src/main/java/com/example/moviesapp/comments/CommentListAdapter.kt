@@ -16,9 +16,9 @@ class CommentListAdapter(var items:MutableList<CommentItem>, val context:Context
     class CommentHolder (val itemTemplate: View): RecyclerView.ViewHolder(itemTemplate){
         fun render(item:CommentItem, context: Context, onClickComment: (item: CommentItem) -> Unit){
             /* Datos del template */
-            itemTemplate.txtNameUser.text = item.name_user
+            itemTemplate.txtNameUser.text = item.username
             itemTemplate.txtComment.text = item.comment
-            itemTemplate.txtDate.text = item.date_comment
+            itemTemplate.txtDate.text = item.date
 
             /* Button Listeners */
             itemTemplate.LayoutCardComment.setOnClickListener {

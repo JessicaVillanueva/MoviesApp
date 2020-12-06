@@ -12,7 +12,7 @@ class RestEngine {
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.1.71:5555/")
+                .baseUrl("http://192.168.1.81:5555/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
