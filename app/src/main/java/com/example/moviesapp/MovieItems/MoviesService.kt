@@ -10,7 +10,7 @@ interface MoviesService  {
     fun listMovies():Call<List<MovieItem>>
 
     @GET("movies/{movieId}")
-    fun movieDetails(@Path("movieId") movieId:String):Call<MovieItem>
+    fun movieDetails(@Path("movieId") movieId:Int):Call<MovieItem>
 
     @GET("movies")
     fun movieSeacrch(@Query("search") search:String):Call<List<MovieItem>>
