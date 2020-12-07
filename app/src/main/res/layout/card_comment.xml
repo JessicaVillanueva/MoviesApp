@@ -16,14 +16,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="TextView" />
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#c887ff"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:gravity="right"
+            android:text="TextView"
+            android:textColor="#e3c3ff"
+            android:textSize="10sp" />
     </LinearLayout>
 
     <TextView
@@ -31,5 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp" />
 </LinearLayout>
