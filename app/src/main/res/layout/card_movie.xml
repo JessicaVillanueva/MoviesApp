@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="	#bab6ff"
+                android:background="#bab6ff"
                 android:text="Like" />
 
             <Button
@@ -78,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#989191"
                 android:text="Dislike" />
         </LinearLayout>
     </LinearLayout>

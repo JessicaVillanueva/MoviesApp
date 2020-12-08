@@ -108,7 +108,7 @@ class MovieDetails : AppCompatActivity() {
             //adapter?.notifyDataSetChanged()
             super.onActivityResult(requestCode, resultCode, data)
         } else {
-            Toast.makeText(this@MovieDetails, "Ocurrio un error", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this@MovieDetails, "Ocurrio un error", Toast.LENGTH_SHORT).show()
         }
     }
 

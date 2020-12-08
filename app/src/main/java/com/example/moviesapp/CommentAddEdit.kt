@@ -32,7 +32,7 @@ class CommentAddEdit : AppCompatActivity() {
         btnCommentCancel.setOnClickListener { onBackPressed() }
     }
     fun formSetUpAdd(){
-        setTitle("Agregar Comentario")
+        //AGREGAR COMENTARIO
         btnCommentSave.setOnClickListener {
             // Validaciones
             if(!EditTComentAddEdit.text.toString().isEmpty()){

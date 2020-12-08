@@ -4,16 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="vertical"
     tools:context=".CommentAddEdit">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,6 +22,7 @@
             android:layout_height="wrap_content"
             android:text="ADD COMMENT"
             android:textAlignment="center"
+            android:textColor="@color/purple_200"
             android:textSize="30sp" />
 
         <EditText
@@ -39,20 +33,25 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="Comment"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnCommentSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Save" />
+            android:background="@drawable/btn_round"
+            android:text="Save"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnCommentCancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel" />
+            android:background="@drawable/btn_round"
+            android:text="Cancel"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
