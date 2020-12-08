@@ -7,14 +7,20 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moviesapp.LikesDislikes.LikesDisItem
 import com.example.moviesapp.MovieItems.MovieItem
 import com.example.moviesapp.MovieItems.MovieListAdapter
 import com.example.moviesapp.MovieItems.MoviesService
 import com.example.moviesapp.Rest.RestEngine
 import com.example.moviesapp.auth.Token
+import com.example.moviesapp.helpers.ActivitiesHelper
+import kotlinx.android.synthetic.main.activity_movie_details.*
 import kotlinx.android.synthetic.main.activity_movies.*
+import kotlinx.android.synthetic.main.card_movie.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +34,7 @@ class Movies : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
 
@@ -48,7 +55,27 @@ class Movies : AppCompatActivity() {
                 filtrar(token.toString(), editable.toString())
             }
         })
+
+        /*val userPref = applicationContext.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val token = userPref.getString("token", "0")
+
+        val id_movie  = intent.getIntExtra("movie_id", -1)
+//        getMovie(token,id_movie)
+//        getComments(token, id)
+        token?.let { getMovie(it, id_movie) }
+        token?.let { getComments(it, id_movie) }
+
+        initTodoRecycler()
+
+        btnLike.setOnClickListener {
+            startActivityForResult(token?.let { it1 ->
+                ActivitiesHelper().openAddTodo(this, id_movie,
+                        it1
+                )
+            }, ActivitiesHelper().OPEN_ADD_TODO_RID)
+        }*/
     }
+
 
     fun ClickDetails(item:MovieItem) {
         //startActivityForResult(ActivitiesHelper().openEditTodo(this, item), ActivitiesHelper().OPEN_EDIT_TODO_RID)
@@ -57,6 +84,7 @@ class Movies : AppCompatActivity() {
         intent.putExtra("movie_id", item.id)
         startActivity(intent)
     }
+
 
     private fun getMovies(token: String){
         val moviesService = RestEngine.getRestEngine().create(MoviesService::class.java)
@@ -87,6 +115,7 @@ class Movies : AppCompatActivity() {
             }
         })
     }
+
 
     fun initTodoRecycler() {
         adapter = MovieListAdapter(listMovies, this, ::ClickDetails)
@@ -125,6 +154,8 @@ class Movies : AppCompatActivity() {
                 println("Respondio incorrectamente")
             }
         })
+
+
 
 //        for (producto in listProducts) {
 //            if (producto.getNameProduct().toLowerCase().contains(texto.toLowerCase())) {
