@@ -3,6 +3,7 @@
     android:id="@+id/LayoutCardComment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,14 +17,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="TextView" />
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#c887ff"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:gravity="right"
+            android:text="TextView"
+            android:textColor="#e3c3ff"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <TextView
@@ -31,5 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 </LinearLayout>
