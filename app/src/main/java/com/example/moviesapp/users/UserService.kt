@@ -1,23 +1,25 @@
 package com.example.moviesapp.users
 
 import com.example.moviesapp.auth.AuthItem
+import com.example.moviesapp.comments.Comment
 import com.example.moviesapp.comments.CommentItem
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UserService {
-
-
-    //@POST("auth/login")
-    //fun login(@Body auth: AuthItem?): Call<UserItem?>?
 
     @POST("auth/login")
     @FormUrlEncoded
     fun login(@Field("email") email: String,
            @Field("password") password: String): Call<UserItem>
+
+
+
+    //ruta para crear un usuario
+    @POST("users")
+    fun saveUser(
+        @Body user: User?
+    ): Call<User?>
 
 //    @POST("comment")
 //    @FormUrlEncoded

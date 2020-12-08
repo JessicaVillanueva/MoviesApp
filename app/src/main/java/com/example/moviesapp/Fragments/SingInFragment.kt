@@ -56,9 +56,6 @@ class SingInFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_sing_in, container, false)
 
-
-        //view_fragment = inflater.inflate(R.layout.fragment_sing_in, container, false)
-        //init()
         return view
     }
 
@@ -101,6 +98,9 @@ class SingInFragment : Fragment() {
 
 
     private fun validate(): Boolean {
+        txtLayoutEmailSignIn.isErrorEnabled = false
+        txtLayoutPasswordSignIn.isErrorEnabled = false
+
         if (txtEmailSignIn.text.toString().isEmpty()) {
             txtLayoutEmailSignIn.isErrorEnabled = true
             txtLayoutEmailSignIn.error = "Email es requerido"
