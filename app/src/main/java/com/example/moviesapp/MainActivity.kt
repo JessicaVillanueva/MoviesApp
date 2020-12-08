@@ -23,13 +23,8 @@ class MainActivity : AppCompatActivity() {
             //si el token no esta activo
             supportFragmentManager.beginTransaction().add(R.id.frameAuthContainer, SingInFragment()).commit()
         }
-
-
-
         //NECESITA LA AUTENTIFICACIÖN PARA ENTRAR
         //var intent = Intent(this, Movies::class.java)
         //startActivity(intent)
-
-
     }
 }

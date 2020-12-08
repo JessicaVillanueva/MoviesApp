@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviesapp.MovieItems.MovieItem
@@ -24,8 +25,6 @@ class Movies : AppCompatActivity() {
 
     var listMovies:MutableList<MovieItem> = ArrayList()
     var adapter: MovieListAdapter? = null
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,8 +81,11 @@ class Movies : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<List<MovieItem>>, t: Throwable) {
-                println(t.message)
-                println("Respondio incorrectamente")
+                Toast.makeText(
+                        this@Movies,
+                        "No hay conexión",
+                        Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
@@ -99,7 +101,7 @@ class Movies : AppCompatActivity() {
         var filtrarLista:MutableList<MovieItem> = ArrayList()
 
         val moviesService = RestEngine.getRestEngine().create(MoviesService::class.java)
-        val result = moviesService.movieSeacrch(token.toString(),texto)
+        val result = moviesService.movieSeacrch(token,texto)
         result.enqueue(object: Callback<List<MovieItem>> {
             override fun onResponse(
                     call: Call<List<MovieItem>>,
@@ -119,18 +121,13 @@ class Movies : AppCompatActivity() {
                 }
             }
 
-
             override fun onFailure(call: Call<List<MovieItem>>, t: Throwable) {
-                println(t.message)
-                println("Respondio incorrectamente")
+                Toast.makeText(
+                        this@Movies,
+                        "No hay conexión",
+                        Toast.LENGTH_SHORT
+                ).show()
             }
         })
-
-//        for (producto in listProducts) {
-//            if (producto.getNameProduct().toLowerCase().contains(texto.toLowerCase())) {
-//                filtrarLista.add(producto)
-//            }
-//        }
-        //adapter?.filtrar(filtrarLista)
     }
 }

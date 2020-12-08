@@ -17,6 +17,7 @@ class ActivitiesHelper {
         return intent
     }
     fun openEditTodo(ctx: Context, itemData: CommentItem): Intent {
+        //No necesito todos lo valores
         val intent = Intent(ctx, CommentAddEdit::class.java).apply {
             putExtra("TYPE", "EDIT")
             putExtra("ID", itemData.id)

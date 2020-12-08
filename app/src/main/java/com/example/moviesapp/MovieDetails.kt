@@ -34,8 +34,7 @@ class MovieDetails : AppCompatActivity() {
         val token = userPref.getString("token", "0")
 
         val id_movie  = intent.getIntExtra("movie_id", -1)
-//        getMovie(token,id_movie)
-//        getComments(token, id)
+
         token?.let { getMovie(it, id_movie) }
         token?.let { getComments(it, id_movie) }
 
@@ -66,7 +65,11 @@ class MovieDetails : AppCompatActivity() {
 
                 result.enqueue(object : Callback<CommentItem?> {
                     override fun onFailure(call: Call<CommentItem?>, t: Throwable) {
-                        TODO("Not yet implemented")
+                        Toast.makeText(
+                                this@MovieDetails,
+                                "No hay conexión",
+                                Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                     override fun onResponse(
@@ -93,17 +96,10 @@ class MovieDetails : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-
                     }
                 })
 
-
             } else if (requestCode == ActivitiesHelper().OPEN_EDIT_TODO_RID) {
-                /*var elemento = todoItems?.find { it.id == data?.getIntExtra("ID", -1)!!}
-                elemento?.title = data?.getStringExtra("TITLE")!!
-                elemento?.message = data?.getStringExtra("MESSAGE")!!
-                elemento?.date = data?.getStringExtra("DATE")!!
-                elemento?.imageUri = data?.getStringExtra("IMAGE_URI")!!*/
             }
             //adapter?.notifyDataSetChanged()
             super.onActivityResult(requestCode, resultCode, data)

@@ -62,36 +62,7 @@ class CommentAddEdit : AppCompatActivity() {
         }
     }
     fun formSetUpEdit(){
-        /*  setTitle("Editar tarea")
-          val id = intent?.getIntExtra("ID", -1)!!
-          vTodoInputTitle.setText(intent.getStringExtra("TITLE"))
-          vTodoInputMessage.setText(intent.getStringExtra("MESSAGE"))
-          vTodoInputDate.setText(intent.getStringExtra("DATE"))
-          if(!intent.getStringExtra("IMAGE_URI").toString().isEmpty()) {
-              intent.getStringExtra("IMAGE_URI")?.let {
-                  vTodoInputImage.setText(it)
-                  updateImage(it)
-              }
-          }
-          vTodoBtnSave.setOnClickListener {
-              // Validaciones
-              if(!vTodoInputTitle.text.toString().isEmpty() && !vTodoInputMessage.text.toString().isEmpty() && !vTodoInputDate.text.toString().isEmpty()) {
-                  todoDbController!!.update(
-                      TodoItemData(
-                          id,
-                          vTodoInputTitle.text.toString(),
-                          vTodoInputMessage.text.toString(),
-                          vTodoInputDate.text.toString(),
-                          vTodoInputImage.text.toString()
-                      )
-                  )
-                  setResult(Activity.RESULT_OK, intent)
-                  onBackPressed()
-              }else{
-                  showDialogAlertSimple()
-              }
-          }
-  */
+
       }
 
     fun showDialogAlertSimple() {
