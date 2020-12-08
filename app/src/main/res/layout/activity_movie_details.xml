@@ -84,8 +84,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvComments"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="9.76">
+        android:layout_height="0dp"
+        android:layout_weight="9.75">
 
     </androidx.recyclerview.widget.RecyclerView>
 

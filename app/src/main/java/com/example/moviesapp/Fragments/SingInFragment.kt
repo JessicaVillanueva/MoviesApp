@@ -1,18 +1,33 @@
 package com.example.moviesapp.Fragments
 
+import android.app.ProgressDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.moviesapp.MainActivity
+import com.example.moviesapp.Movies
 import com.example.moviesapp.R
+import com.example.moviesapp.Rest.RestEngine
+import com.example.moviesapp.auth.AuthItem
+import com.example.moviesapp.users.UserItem
+import com.example.moviesapp.users.UserService
 import kotlinx.android.synthetic.main.fragment_sing_in.*
-import kotlinx.android.synthetic.main.fragment_sing_in.view.*
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private var dialog: ProgressDialog? = null
 
 /**
  * A simple [Fragment] subclass.
@@ -39,7 +54,7 @@ class SingInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view: View = inflater!!.inflate(R.layout.fragment_sing_in, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_sing_in, container, false)
 
 
         //view_fragment = inflater.inflate(R.layout.fragment_sing_in, container, false)
@@ -50,10 +65,17 @@ class SingInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnSignIn.setOnClickListener { view ->
+        dialog = ProgressDialog(context)
+        dialog!!.setCancelable(false)
+
+        btnSignIn.setOnClickListener {
             if (validate()) {
-                println("si paso el if c::::::::::")
+                login()
             }
+        }
+        txtSignUp.setOnClickListener {
+            activity!!.supportFragmentManager.beginTransaction()
+                    .replace(R.id.frameAuthContainer, SingUpFragment()).commit()
         }
     }
 
@@ -77,33 +99,55 @@ class SingInFragment : Fragment() {
             }
     }
 
-    private fun init(){
-        //inicia los botones
-      /* txtSignUp.setOnClickListener {
-            activity!!.supportFragmentManager.beginTransaction()
-                .replace(R.id.frameAuthContainer, SingUpFragment()).commit()
-        }*/
-
-
-        /*btnSignIn.setOnClickListener {
-            println("si entra al boton c::::::::::")
-            if (validate()) {
-               println("si paso el if c::::::::::")
-            }
-        }*/
-    }
 
     private fun validate(): Boolean {
-        if (txtEmailSignIn.getText().toString().isEmpty()) {
-            txtLayoutEmailSignIn.setErrorEnabled(true)
-            txtLayoutEmailSignIn.setError("Email es requerido")
+        if (txtEmailSignIn.text.toString().isEmpty()) {
+            txtLayoutEmailSignIn.isErrorEnabled = true
+            txtLayoutEmailSignIn.error = "Email es requerido"
             return false
         }
-        if (txtPasswordSignIn.getText().toString().length < 8) {
-            txtLayoutPasswordSignIn.setErrorEnabled(true)
-            txtLayoutPasswordSignIn.setError("Contraseña debe ser mayor a 8 caracteres")
+        if (txtPasswordSignIn.text.toString().length < 3) {
+            txtLayoutPasswordSignIn.isErrorEnabled = true
+            txtLayoutPasswordSignIn.error = "Contraseña debe ser mayor a 3 caracteres"
             return false
         }
         return true
+    }
+
+    fun login(){
+        dialog?.setMessage("Logging in")
+        dialog?.show()
+
+        val auth = AuthItem(txtEmailSignIn.text.toString(), txtPasswordSignIn.text.toString())
+
+
+        val userService = RestEngine.getRestEngine().create(UserService::class.java)
+        val result = userService.login(txtEmailSignIn.text.toString(), txtPasswordSignIn.text.toString())
+
+        result?.enqueue(object: Callback<UserItem?> {
+            override fun onFailure(call: Call<UserItem?>, t: Throwable) {
+                Toast.makeText(context, "Falló la conexión, intente más tarde", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<UserItem?>, response: Response<UserItem?>) {
+                println(response.body()?.data?.token)
+                if (response.isSuccessful) {
+                    val userPref = activity!!.applicationContext.getSharedPreferences("user", Context.MODE_PRIVATE)
+                    val editor = userPref.edit()
+                    editor.putString("token", "Bearer " + response.body()?.data?.token)
+                    editor.putBoolean("isLoggedIn", true)
+                    println(response.body()?.data?.token)
+                    editor.apply()
+
+                    startActivity(Intent(context as MainActivity?, Movies::class.java))
+                    (context as MainActivity).finish()
+                    Toast.makeText(context, "Login Success", Toast.LENGTH_SHORT).show()
+
+                }else{
+                    Toast.makeText(context, response.body()?.msg.toString(), Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+        dialog?.dismiss()
     }
 }

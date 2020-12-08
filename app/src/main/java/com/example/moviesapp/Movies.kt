@@ -1,7 +1,10 @@
 package com.example.moviesapp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
@@ -10,21 +13,31 @@ import com.example.moviesapp.MovieItems.MovieItem
 import com.example.moviesapp.MovieItems.MovieListAdapter
 import com.example.moviesapp.MovieItems.MoviesService
 import com.example.moviesapp.Rest.RestEngine
+import com.example.moviesapp.auth.Token
 import kotlinx.android.synthetic.main.activity_movies.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class Movies : AppCompatActivity() {
 
     var listMovies:MutableList<MovieItem> = ArrayList()
     var adapter: MovieListAdapter? = null
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
 
-        getMovies()
+        val userPref = applicationContext.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val token = userPref.getString("token", "0")
+
+
+        if (token != null) {
+            getMovies(token)
+        }
 
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
@@ -32,7 +45,7 @@ class Movies : AppCompatActivity() {
 
             //LLAMA A LA FUNCIÓN FILTRAR Y LE MANDA EL NOMBRE de la pelicula
             override fun afterTextChanged(editable: Editable) {
-                filtrar(editable.toString())
+                filtrar(token.toString(), editable.toString())
             }
         })
     }
@@ -45,11 +58,11 @@ class Movies : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun getMovies(){
+    private fun getMovies(token: String){
         val moviesService = RestEngine.getRestEngine().create(MoviesService::class.java)
-        val result = moviesService.listMovies()
+        val result = moviesService.listMovies(token)
 
-        result.enqueue(object: retrofit2.Callback<List<MovieItem>> {
+        result.enqueue(object: Callback<List<MovieItem>> {
             override fun onResponse(
                 call: Call<List<MovieItem>>,
                 response: Response<List<MovieItem>>
@@ -68,8 +81,6 @@ class Movies : AppCompatActivity() {
                     initTodoRecycler()
                 }
             }
-
-
             override fun onFailure(call: Call<List<MovieItem>>, t: Throwable) {
                 println(t.message)
                 println("Respondio incorrectamente")
@@ -84,11 +95,11 @@ class Movies : AppCompatActivity() {
     }
 
     //SIRVE PARA LA BUSQUEDA DE UN PRODUCTO
-    fun filtrar(texto: String) {
+    fun filtrar(token: String, texto: String) {
         var filtrarLista:MutableList<MovieItem> = ArrayList()
 
         val moviesService = RestEngine.getRestEngine().create(MoviesService::class.java)
-        val result = moviesService.movieSeacrch(texto)
+        val result = moviesService.movieSeacrch(token.toString(),texto)
         result.enqueue(object: Callback<List<MovieItem>> {
             override fun onResponse(
                     call: Call<List<MovieItem>>,

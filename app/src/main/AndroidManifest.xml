@@ -12,7 +12,8 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".MovieDetails"></activity>
+        <activity android:name=".CommentAddEdit"></activity>
+        <activity android:name=".MovieDetails" />
         <activity android:name=".Movies" />
         <activity android:name=".MainActivity">
             <intent-filter>
