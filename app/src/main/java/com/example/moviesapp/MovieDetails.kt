@@ -39,6 +39,8 @@ class MovieDetails : AppCompatActivity() {
         token?.let { getMovie(it, id_movie) }
         token?.let { getComments(it, id_movie) }
 
+        initCommentRecycler()
+
         btnAddComment.setOnClickListener {
             startActivityForResult(token?.let { it1 ->
                 ActivitiesHelper().openAddTodo(this, id_movie,
@@ -80,6 +82,8 @@ class MovieDetails : AppCompatActivity() {
                             if (token != null) {
                                 if (id_movie != null) {
                                     getComments(token, id_movie)
+
+                                    adapter?.notifyDataSetChanged()
                                 }
                             }
                         }else{
@@ -101,7 +105,7 @@ class MovieDetails : AppCompatActivity() {
                 elemento?.date = data?.getStringExtra("DATE")!!
                 elemento?.imageUri = data?.getStringExtra("IMAGE_URI")!!*/
             }
-            adapter?.notifyDataSetChanged()
+            //adapter?.notifyDataSetChanged()
             super.onActivityResult(requestCode, resultCode, data)
         } else {
             Toast.makeText(this@MovieDetails, "Ocurrio un error", Toast.LENGTH_SHORT).show()
@@ -128,6 +132,8 @@ class MovieDetails : AppCompatActivity() {
     }
 
     private fun getComments(token:String, movieId:Int){
+        val getlistComments:MutableList<CommentItem> = ArrayList()
+
         val commentService = RestEngine.getRestEngine().create(CommentService::class.java)
         val result = commentService.listCommentsForMovie(token, movieId)
 
@@ -137,12 +143,12 @@ class MovieDetails : AppCompatActivity() {
                 response: Response<List<CommentItem>>
             ) {
                 if(response.isSuccessful){
-                    listComments = null
                     for((id, comment, date, movie_id, user_id, username)in response.body()!!){
-                        listComments.add(
+                        getlistComments.add(
                             CommentItem(id, comment, date, movie_id, user_id, username)
                         )
                     }
+                    listComments = getlistComments
                     initCommentRecycler()
 
                 }

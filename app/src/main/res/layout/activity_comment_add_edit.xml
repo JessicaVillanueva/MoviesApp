@@ -27,7 +27,7 @@
             android:id="@+id/txtCommentAddEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="ADD COMMENT"
             android:textAlignment="center"
             android:textSize="30sp" />
 
